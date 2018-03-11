@@ -6,7 +6,7 @@ let REDIRECT_URI = 'http://localhost:3000/';
 
 let accessToken = "";
 
-class Spotify extends React.Component {
+const Spotify  = {
     getAccessToken() {
         if (accessToken) {
             return accessToken;
@@ -23,7 +23,7 @@ class Spotify extends React.Component {
             const access_url = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&scope=playlist-modify-public&redirect_uri=${REDIRECT_URI}`;
             window.location = access_url;
         }
-    }
+    },
 
     search(term) {
         fetch('https://api.spotify.com/v1/search?type=track&q=term', {
@@ -43,7 +43,7 @@ class Spotify extends React.Component {
         }).catch(function (error) {
             return [];
         });
-    }
+    },
 
     savePlaylist(playlist, trackURIs) {
         if (!playlist && !trackURIs) {
