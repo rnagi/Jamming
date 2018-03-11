@@ -1,12 +1,9 @@
-import React from 'react';
-
-
 let CLIENT_ID = 'ac12a8340aaa4e2690c999d9396cd48b';
 let REDIRECT_URI = 'http://localhost:3000/';
 
 let accessToken = "";
 
-const Spotify  = {
+const Spotify = {
     getAccessToken() {
         if (accessToken) {
             return accessToken;
@@ -25,9 +22,9 @@ const Spotify  = {
         }
     },
 
-    search(term) {
-        return
-        fetch('https://api.spotify.com/v1/search?type=track&q=term', {
+    search(term) {    
+        console.log(term);    
+        return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
             headers: { Authorization: `Bearer ${accessToken}` }
         }).then(function (response) {
             return response.json();
@@ -42,6 +39,7 @@ const Spotify  = {
                 })
             )
         }).catch(function (error) {
+            console.log('error in spotify search');
             return [];
         });
     },
@@ -50,7 +48,7 @@ const Spotify  = {
         if (!playlist && !trackURIs) {
             return;
         }
-        let accessToken = accessToken;
+         
         let headers = { Authorization: `Bearer ${accessToken}` };
         let user_id = '';
 
@@ -63,7 +61,7 @@ const Spotify  = {
         });
 
 
-        fetch(`'https://api.spotify.com/v1/users/${user_id}/playlists`, {
+        return fetch(`'https://api.spotify.com/v1/users/${user_id}/playlists`, {
             method: 'POST',
             body: JSON.stringify({ name: playlist }),
             headers: { Authorization: `Bearer ${accessToken}` }

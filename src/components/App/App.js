@@ -31,7 +31,7 @@ class App extends Component {
   removeTrack(track) {
     let tracks = this.state.playlistTracks;
     //console.log(tracks);
-    if (tracks.filter(track => track.name === track.name)) {
+    if (tracks.filter(t => t.name === track.name)) {
       this.setState({ playlistTracks: tracks });
     }
 
@@ -57,7 +57,7 @@ class App extends Component {
   }
 
   search(term) {
-    //console.log(term);
+   //console.log(term);
     Spotify.search(term).then(function (tracks) {
       this.setState({ searchResults: tracks })
     });
