@@ -34,7 +34,6 @@ class App extends Component {
     if (tracks.filter(t => t.name === track.name)) {
       this.setState({ playlistTracks: tracks });
     }
-
   }
 
   updatePlaylistName(name) {
