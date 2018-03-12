@@ -15,7 +15,7 @@ class SearchBar extends React.Component {
     }
 
     search(term) {
-        console.log('pressed search button in Search Bar Compononent');
+       // console.log('pressed search button in Search Bar Compononent');
         this.props.onSearch(this.state.term);
     }
 

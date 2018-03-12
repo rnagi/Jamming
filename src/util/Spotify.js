@@ -22,16 +22,16 @@ const Spotify = {
         }
     },
 
-    search(term) {    
-       // console.log(term);
-        accessToken = this.getAccessToken();    
+    search(term) {
+        // console.log(term);
+        let accessToken = this.getAccessToken();
         return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
             headers: { Authorization: `Bearer ${accessToken}` }
         }).then(function (response) {
-            console.log(response);
+            //  console.log(response);
             return response.json();
         }).then(function (jsonResponse) {
-            console.log(jsonResponse);
+            //   console.log(jsonResponse);
             return jsonResponse.tracks.items.map(track =>
                 ({
                     id: track.id,
@@ -51,31 +51,36 @@ const Spotify = {
         if (!playlist && !trackURIs) {
             return;
         }
-         
+        let accessToken = this.getAccessToken();
         let headers = { Authorization: `Bearer ${accessToken}` };
-        let user_id = '';
+        let userid = '';
 
         fetch('https://api.spotify.com/v1/me', {
             headers: headers
         }).then(function (response) {
+            console.log(response);
             return response.json();
+           
         }).then(function (jsonResponse) {
-            user_id = jsonResponse.Id;
-        });
+            console.log(jsonResponse);
+            userid = jsonResponse.id;
+            //console.log("userid: " + userid);
+        }).then(function () {
+            return fetch(`https://api.spotify.com/v1/users/${userid}/playlists`, {
+                method: 'POST',
+                body: JSON.stringify({ name: playlist }),
+                headers: { Authorization: `Bearer ${accessToken}` }
+            }).then(response => {
+                if (response.ok) {
 
-
-        return fetch(`'https://api.spotify.com/v1/users/${user_id}/playlists`, {
-            method: 'POST',
-            body: JSON.stringify({ name: playlist }),
-            headers: { Authorization: `Bearer ${accessToken}` }
-        }).then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error('Request failed!');
-        }, newtorkError => console.log(newtorkError.message)
-        ).then(jsonResponse => {
-            let playlistId = jsonResponse.id;
+                    console.log(response);
+                    return response.json();
+                }
+                throw new Error('Request failed!');
+            }, newtorkError => console.log(newtorkError.message)
+            ).then(jsonResponse => {
+                let playlistId = jsonResponse.id;
+            });
         });
     }
 }
