@@ -10,9 +10,9 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      searchResults: [{ name: 'track', artist: 'artist', album: 'album' }],
+      searchResults: [],
       playlistName: 'myplay',
-      playlistTracks: [{ name: 'track1', artist: 'artist1', album: 'album1' }]
+      playlistTracks: []
     };
     this.addTrack = this.addTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
@@ -29,9 +29,11 @@ class App extends Component {
   }
 
   removeTrack(track) {
+   
+    console.log(track);
+
     let tracks = this.state.playlistTracks;
-    //console.log(tracks);
-    if (tracks.filter(t => t.name === track.name)) {
+    if (tracks.filter(t => t === track)) {
       this.setState({ playlistTracks: tracks });
     }
   }
@@ -57,11 +59,11 @@ class App extends Component {
 
   search(term) {
    //console.log(term);
-    Spotify.search(term).then(function (tracks) {
-      this.setState({ searchResults: tracks })
+    Spotify.search(term).then(tracks =>  {
+      this.setState({ searchResults: tracks });
     });
-
   }
+
   render() {
     return (
       <div>
