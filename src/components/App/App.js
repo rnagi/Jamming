@@ -44,15 +44,14 @@ class App extends Component {
 
   savePlaylist() {
     let tracks = this.state.playlistTracks;
-    console.log("tacksinplaylist: " + tracks);
+   // console.log("tacksinplaylist: " + tracks);
     let trackUri = [];
     tracks.forEach(function (track) {
       trackUri.push(track.uri);
     });
 
-    Spotify.savePlaylist('myplaylist', tracks);
-    this.setState(
-      {
+    Spotify.savePlaylist(this.state.playlistName, trackUri);
+    this.setState({
         playlistName: 'New Playlist',
         searchResults: []
       });
@@ -61,7 +60,7 @@ class App extends Component {
   search(term) {
     //console.log(term);
     Spotify.search(term).then(tracks => {
-     // console.log('received results')
+    //  console.log("tracks from search: " + tracks);
       this.setState({ searchResults: tracks });
     });
   }
