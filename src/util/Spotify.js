@@ -1,5 +1,6 @@
 let CLIENT_ID = 'ac12a8340aaa4e2690c999d9396cd48b';
-let REDIRECT_URI = 'http://localhost:3000/';
+let REDIRECT_URI = 'http://localhost:3000';
+
 
 let accessToken = "";
 
